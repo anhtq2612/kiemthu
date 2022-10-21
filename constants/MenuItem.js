@@ -15,4 +15,9 @@ export const menuItems = [
     icon: HiOutlinePhoneIncoming,
     path: '/phone',
   },
+  {
+    title: 'Sản phẩm',
+    icon: HiUserGroup,
+    path: '/products',
+  },
 ]

@@ -4,10 +4,18 @@ import { HiOutlineMenuAlt2, HiOutlineMenu } from 'react-icons/hi'
 import { menuItems } from '../constants/MenuItem'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-function SideBar({ toggleCollapse, setToggleCollapse }) {
+import { useDispatch, useSelector } from 'react-redux'
+import { collapseClose, collapseOpen } from '../pages/redux/reducers'
+function SideBar() {
   const router = useRouter()
+  const dispatch = useDispatch()
+  const toggleCollapse = useSelector((state) => state.collapse.collapse)
   const handleSidebarToggle = () => {
-    setToggleCollapse(!toggleCollapse)
+    if (toggleCollapse) {
+      dispatch(collapseOpen())
+    } else {
+      dispatch(collapseClose())
+    }
   }
 
   const activeMenu = useMemo(
