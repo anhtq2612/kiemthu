@@ -11,6 +11,19 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+.icon-loading {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+}
+
 p {
   margin-bottom: 0 !important
 }

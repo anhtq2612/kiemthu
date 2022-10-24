@@ -25,15 +25,15 @@ function SideBar() {
 
   return (
     <div
-      style={{ transition: 'width 300ms cubic-bezier(0.2, 0, 0, 1) 0s' }}
-      className={`h-screen fixed px-4 pt-8 pb-4 bg-gradient-to-t from-orange-300 to-orange-500 flex justify-between flex-col ${
+      style={{ transition: 'width 100ms cubic-bezier(0.2, 0, 0, 1) 0s' }}
+      className={`h-screen fixed pl-4 pt-8 pb-4 bg-gradient-to-t from-orange-300 to-orange-500 flex justify-between flex-col ${
         toggleCollapse ? 'w-20' : 'w-80'
       }`}
     >
       <div className="flex flex-col">
         <button
           onClick={handleSidebarToggle}
-          className={`flex ${toggleCollapse ? 'justify-center' : 'justify-end'}`}
+          className={`flex pr-4 ${toggleCollapse ? 'justify-center' : 'justify-end'}`}
         >
           <HiOutlineMenuAlt2
             size={20}
@@ -58,8 +58,8 @@ function SideBar() {
           {menuItems.map((item, idx) => (
             <div
               key={idx}
-              className={`hover:bg-gray-200 w-full rounded-lg ${
-                activeMenu?.path === item.path && 'bg-gray-400'
+              className={`hover:bg-gray-200 w-full rounded-l-2xl ${
+                activeMenu?.path === item.path && 'bg-white'
               }`}
             >
               <Link href={item.path}>
