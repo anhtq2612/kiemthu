@@ -71,7 +71,7 @@ function CustomerList(props) {
         setListCoffee(
           listCoffee.concat(fakeData.map((e, idx) => ({ ...e, _id: new Date().getTime() + idx })))
         )
-      }, 1500)
+      }, 500)
     }
   }, [inView])
 
