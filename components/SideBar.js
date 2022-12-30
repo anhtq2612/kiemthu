@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
-import { HiOutlineMenuAlt2, HiOutlineMenu } from 'react-icons/hi'
+import { HiOutlineMenuAlt2, HiOutlineChevronDown } from 'react-icons/hi'
 import { menu } from '../constants/MenuItem'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { collapseClose, collapseOpen, routes } from '../pages/redux/reducers'
 function SideBar() {
-  const {menuItems, setMenuItems} = menu()
+  const { menuItems, setMenuItems } = menu()
   const router = useRouter()
   const dispatch = useDispatch()
   const toggleCollapse = useSelector((state) => state.collapse.collapse)
@@ -22,12 +22,10 @@ function SideBar() {
     const _menuItems = [...menuItems]
     _menuItems[idx].expanded = !item.expanded
     setMenuItems(_menuItems)
-    console.log(_menuItems);
   }
 
   return (
     <div
-      style={{ transition: 'width 100ms cubic-bezier(0.2, 0, 0, 1) 0s' }}
       className={`h-screen fixed pl-4 pt-8 pb-4 bg-gradient-to-t from-purple-700 to-purple-700 flex justify-between flex-col duration-300 transition-all ${
         toggleCollapse ? 'w-20' : 'w-80'
       }`}
@@ -60,11 +58,10 @@ function SideBar() {
         <div className="flex flex-col items-start mt-10">
           {menuItems.map((item, idx) =>
             item.subMenu ? (
-              <div key={idx}>
-                <div
-                  onClick={() => changeExpanded(item, idx)}
-                >
+              <div key={idx} className="w-full">
+                <div className="flex justify-between px-3 py-2 text-purple-100" onClick={() => changeExpanded(item, idx)}>
                   {item.title}
+                  <HiOutlineChevronDown size={15}/>
                 </div>
                 <div>
                   {item.expanded &&

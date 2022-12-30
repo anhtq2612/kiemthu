@@ -19,7 +19,6 @@ export const collapse = createSlice({
       state.listCoffee = action.payload
     },
     routes: (state, action) => {
-      console.log(action);
       state.route = action.payload
     }
   },

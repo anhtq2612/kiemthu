@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { createSlice } from '@reduxjs/toolkit'
 import { HiViewGrid, HiUserGroup, HiViewList, HiCurrencyPound, HiDownload, HiCurrencyYen, HiOutlinePhoneIncoming } from 'react-icons/hi'
-export const menu = () => {
 
-  const [menuItems, setMenuItems] = useState([
+const initialState = {
+  menuItems: [
     {
       title: 'Quản lý nhân viên',
       icon: HiUserGroup,
@@ -50,9 +50,19 @@ export const menu = () => {
     //     },
     //   ]
     // }
-  ])
-  return {
-    menuItems,
-    setMenuItems,
-  };
+  ],
 }
+export const menu = createSlice({
+  name: 'menu',
+  initialState,
+  reducers: {
+    changeMenu: (state, action) => {
+      state.menuItems = [...action.payload]
+    }
+  },
+})
+
+// Action creators are generated for each case reducer function
+export const { changeMenu } = menu.actions
+
+export default menu.reducer

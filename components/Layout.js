@@ -12,7 +12,7 @@ function Layout(props) {
   return (
     <div className="h-screen flex flex-row justify-start">
       <Head>
-        <title>Đây là trang Admin</title>
+        <title>Tuyển dụng IT</title>
         <meta property="og:title" content="Đây là trang Admin" key="admin" />
       </Head>
       <SideBar />
