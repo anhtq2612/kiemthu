@@ -7,22 +7,66 @@ function Login(props) {
   const Login = () => {
     router.push('/customer')
   }
+  let validateSpecialCharacters = /^[a-zA-Z0-9]*$/
+  let validateNumber = /[0-9]/
+  let validateCapital = /[A-Z]/
+  let validateCharacters = /[a-z]/
+  const validatorPassword = (value) => {
+    if (value) {
+      if (value.length < 6) {
+        return Promise.reject(new Error('Mật khẩu phải lớn hơn hoặc bằng 6 kí tự!'))
+      }
+
+      if (!validateCapital.test(value)) {
+        return Promise.reject(new Error('Phải có chữ tối thiểu 1 kí tự in hoa!'))
+      }
+
+      if (!validateCharacters.test(value)) {
+        return Promise.reject(new Error('Phải có chữ tối thiểu 1 kí tự in thường!'))
+      }
+
+      if (!validateNumber.test(value)) {
+        return Promise.reject(new Error('Phải có tối thiểu 1 số!'))
+      }
+
+      if (validateSpecialCharacters.test(value)) {
+        return Promise.reject(new Error('Mật khẩu phải có tối thiểu 1 kí tự đặc biệt!'))
+      }
+    }
+    return Promise.resolve()
+  }
 
   return (
     <div className="wrapper">
-      <img src="https://wallpaperaccess.com/full/2029165.jpg" className=" h-screen w-screen" />
-      <div className="h-40 w-80 absolute top-1/3 left-80">
+      <img
+        src="https://static.vecteezy.com/system/resources/previews/005/152/375/original/modern-futuristic-neon-purple-background-free-vector.jpg"
+        className=" h-screen w-screen"
+      />
+      <div className="p-12 w-[30vw] absolute top-1/3 left-[calc(50%-30vw/2)] bg-gradient-to-b from-purple-500 to-white rounded-xl">
         <div className="text-3xl font-bold mb-5">Đăng nhập</div>
-        <Form>
-          <label className="text-white">Tài khoản</label>
-          <Form.Item name="username">
+        <Form layout="vertical" className="relative">
+          <Form.Item
+            name="username"
+            label={<label className="text-white">Tài khoản</label>}
+            rules={[{ required: true, message: 'Vui lòng nhập tài khoản' }]}
+          >
             <Input />
           </Form.Item>
-          <label className="text-white">Mật khẩu</label>
-          <Form.Item name="password">
+          <Form.Item
+            name="password"
+            label={<label className="text-white">Mật khẩu</label>}
+            rules={[
+              { required: true, message: 'Vui lòng nhập mật khẩu' },
+              {
+                validator: (_, value) => validatorPassword(value),
+              },
+            ]}
+          >
             <Input.Password />
           </Form.Item>
-          <Button onClick={Login}>Đăng nhập</Button>
+          <Button className="w-60 h-16 rounded-xl bg-purple-700 text-white mt-5" onClick={Login}>
+            Đăng nhập
+          </Button>
         </Form>
       </div>
     </div>

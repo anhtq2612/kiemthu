@@ -84,7 +84,9 @@
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
 }
-
+.ant-form-item-explain-error {
+  color: white
+}
 .card:hover,
 .card:focus,
 .card:active {
