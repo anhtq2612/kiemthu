@@ -14,9 +14,12 @@ export default function JobCreate() {
   console.log(router.query.id)
   const onSubmit = async (data) => {
     await axios
-      .post('https://nuxttestproject1-default-rtdb.firebaseio.com/datajob.json', data)
+      .put(
+        `https://nuxttestproject1-default-rtdb.firebaseio.com/datajob/` + router.query.id + `.json`,
+        data
+      )
       .then((res) => {
-        notification.success({ message: 'Thêm mới thành công!' })
+        notification.success({ message: 'Chỉnh sửa thành công!' })
       })
       .catch((err) => {
         notification.error({ message: 'Có lỗi xảy ra!' })
@@ -25,10 +28,10 @@ export default function JobCreate() {
   const onDelete = async (data) => {
     await axios
       .delete(
-        `https://nuxttestproject1-default-rtdb.firebaseio.com/datajob.json/${router.query.id}`
+        `https://nuxttestproject1-default-rtdb.firebaseio.com/datajob/` + router.query.id + `.json`
       )
       .then((res) => {
-        notification.success({ message: 'Thêm mới thành công!' })
+        notification.success({ message: 'Xóa thành công!' })
       })
       .catch((err) => {
         notification.error({ message: 'Có lỗi xảy ra!' })
