@@ -42,7 +42,7 @@ function Login(props) {
         src="https://static.vecteezy.com/system/resources/previews/005/152/375/original/modern-futuristic-neon-purple-background-free-vector.jpg"
         className="w-screen h-screen"
       />
-      <div className="p-12 w-[30vw] absolute top-1/3 left-[calc(50%-30vw/2)] bg-gradient-to-b from-purple-500 to-white rounded-xl">
+      <div className="p-12 w-[30vw] absolute top-1/4 left-[calc(50%-30vw/2)] bg-gradient-to-b from-purple-500 to-white rounded-xl">
         <div className="text-3xl font-bold mb-5">Đăng nhập</div>
         <Form layout="vertical">
           <Form.Item
