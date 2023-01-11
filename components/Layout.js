@@ -22,38 +22,38 @@ function Layout(props) {
         }`}
         style={{ width: toggleCollapse ? 'calc(100% - 80px)' : 'calc(100% - 24rem)' }}
       >
-          <div
-            className="h-16 bg-white w-full top-0 shadow-lg"
-            style={{ width: toggleCollapse ? 'calc(100% - 80px)' : 'calc(100% - 24rem)' }}
-          >
-            <div className="flex justify-between h-full items-center pl-4 pr-6">
-              <p>Thông báo hôm nay là ngày {new Date().toLocaleDateString()}</p>
-              <Popover
-                placement="bottomRight"
-                trigger="click"
-                title={false}
-                content={() => (
-                  <div className="w-40">
-                    <div className="hover-content-popover">
-                      <p className="p-2 pl-3">Thông tin tài khoản</p>
-                    </div>
-                    <Link href="/login">
-                      <div className="hover-content-popover">
-                        <p className="p-2 pl-3">
-                          <a>Đăng xuất</a>
-                        </p>
-                      </div>
-                    </Link>
+        <div
+          className="h-16 bg-white w-full top-0 shadow-lg"
+          style={{ width: toggleCollapse ? 'calc(100% - 80px)' : 'calc(100% - 24rem)' }}
+        >
+          <div className="flex justify-between h-full items-center pl-4 pr-6">
+            <p>Hi admin! Chào mừng bạn đến với web tuyển dụng IT</p>
+            <Popover
+              placement="bottomRight"
+              trigger="click"
+              title={false}
+              content={() => (
+                <div className="w-40">
+                  <div className="hover-content-popover">
+                    <p className="p-2 pl-3">Thông tin tài khoản</p>
                   </div>
-                )}
-              >
-                <div className="rounded-full border-2 border-gray-700">
-                  <AiOutlineUser size={20} />
+                  <Link href="/login">
+                    <div className="hover-content-popover">
+                      <p className="p-2 pl-3">
+                        <a>Đăng xuất</a>
+                      </p>
+                    </div>
+                  </Link>
                 </div>
-              </Popover>
+              )}
+            >
+              <div className="rounded-full border-2 border-gray-700">
+                <AiOutlineUser size={20} />
+              </div>
+            </Popover>
           </div>
         </div>
-        <div className="p-4">{props.children}</div>
+        <div className="p-4 overflow-auto">{props.children}</div>
       </div>
     </div>
   )

@@ -1,7 +1,14 @@
 import { useState } from 'react'
-import { HiViewGrid, HiUserGroup, HiViewList, HiCurrencyPound, HiDownload, HiCurrencyYen, HiOutlinePhoneIncoming } from 'react-icons/hi'
+import {
+  HiViewGrid,
+  HiUserGroup,
+  HiViewList,
+  HiCurrencyPound,
+  HiDownload,
+  HiCurrencyYen,
+  HiOutlinePhoneIncoming,
+} from 'react-icons/hi'
 export const menu = () => {
-
   const [menuItems, setMenuItems] = useState([
     {
       title: 'Quản lý nhân viên',
@@ -22,6 +29,11 @@ export const menu = () => {
       title: 'Danh sách sản phẩm',
       icon: HiViewList,
       path: '/products',
+    },
+    {
+      title: 'Quản lý JOB',
+      icon: HiViewList,
+      path: '/list-jobs',
     },
     {
       title: 'Test',
@@ -54,5 +66,5 @@ export const menu = () => {
   return {
     menuItems,
     setMenuItems,
-  };
+  }
 }
