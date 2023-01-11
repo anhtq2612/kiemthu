@@ -21,7 +21,7 @@ export const menu = () => {
     {
       title: 'Quản lý tài khoản',
       icon: HiUserGroup,
-      path: '/account',
+      path: '/accounts',
     },
     // {
     //   title: 'Doanh thu',

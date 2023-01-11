@@ -27,7 +27,7 @@ function Layout(props) {
           style={{ width: toggleCollapse ? 'calc(100% - 80px)' : 'calc(100% - 24rem)' }}
         >
           <div className="flex justify-between h-full items-center pl-4 pr-6">
-            <p>Hi admin! Chào mừng bạn đến với web tuyển dụng IT</p>
+            <p>Hi ! Chào mừng bạn đến với web tuyển dụng IT</p>
             <Popover
               placement="bottomRight"
               trigger="click"
@@ -35,7 +35,9 @@ function Layout(props) {
               content={() => (
                 <div className="w-40">
                   <div className="hover-content-popover">
-                    <p className="p-2 pl-3">Thông tin tài khoản</p>
+                    <p className="p-2 pl-3" onClick={() => router.push('/infoAccount')}>
+                      Thông tin tài khoản
+                    </p>
                   </div>
                   <Link href="/login">
                     <div className="hover-content-popover">

@@ -1,11 +1,31 @@
-import { Button, Form, Input } from 'antd'
+import { Button, Form, Input, notification } from 'antd'
+import axios from 'axios'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 function Login(props) {
   const router = useRouter()
+  const [form] = Form.useForm()
+  const [listAccounts, setListAccounts] = useState([])
   const Login = () => {
-    router.push('/customer')
+    if (
+      (listAccounts.find((e) => e.username === form.getFieldValue('username')) &&
+        listAccounts.find((e) => e.password === form.getFieldValue('password'))) ||
+      (form.getFieldValue('username') === 'admin' && form.getFieldValue('password') === 'Admin@123')
+    ) {
+      router.push('/accounts')
+      localStorage.setItem(
+        'account',
+        JSON.stringify({
+          type:
+            form.getFieldValue('username') === 'admin' ? 'admin' : form.getFieldValue('username'),
+          id: listAccounts.find((e) => e.username === form.getFieldValue('username')).id,
+          password: form.getFieldValue('password'),
+        })
+      )
+    } else {
+      notification.error({ message: 'Sai thông tin đăng nhập' })
+    }
   }
   let validateSpecialCharacters = /^[a-zA-Z0-9]*$/
   let validateNumber = /[0-9]/
@@ -36,15 +56,30 @@ function Login(props) {
     return Promise.resolve()
   }
 
+  const getListAccounts = async () => {
+    await axios
+      .get('https://nuxttestproject1-default-rtdb.firebaseio.com/accounts.json')
+      .then((res) => {
+        if (res.data) {
+          setListAccounts(Object.keys(res.data).map((s) => ({ ...res.data[s], id: s })))
+        }
+      })
+      .catch((error) => console.log(error))
+  }
+
+  useEffect(() => {
+    getListAccounts()
+  }, [])
+
   return (
     <div>
       <img
         src="https://static.vecteezy.com/system/resources/previews/005/152/375/original/modern-futuristic-neon-purple-background-free-vector.jpg"
         className="w-screen h-screen"
       />
-      <div className="p-12 w-[30vw] absolute top-1/4 left-[calc(50%-30vw/2)] bg-gradient-to-b from-purple-500 to-white rounded-xl">
-        <div className="text-3xl font-bold mb-5">Đăng nhập</div>
-        <Form layout="vertical">
+      <div className="p-12 w-[30vw] absolute top-[calc(50%-220px)] left-[calc(50%-30vw/2)] bg-gradient-to-b from-purple-700 to-purple-200 rounded-xl">
+        <div className="text-3xl text-white font-bold mb-5">Đăng nhập</div>
+        <Form layout="vertical" form={form}>
           <Form.Item
             name="username"
             label={<label className="text-white">Tài khoản</label>}
