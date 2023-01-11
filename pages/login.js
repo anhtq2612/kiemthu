@@ -37,14 +37,14 @@ function Login(props) {
   }
 
   return (
-    <div className="wrapper">
+    <div>
       <img
         src="https://static.vecteezy.com/system/resources/previews/005/152/375/original/modern-futuristic-neon-purple-background-free-vector.jpg"
-        className=" h-screen w-screen"
+        className="w-screen h-screen"
       />
       <div className="p-12 w-[30vw] absolute top-1/3 left-[calc(50%-30vw/2)] bg-gradient-to-b from-purple-500 to-white rounded-xl">
         <div className="text-3xl font-bold mb-5">Đăng nhập</div>
-        <Form layout="vertical" className="relative">
+        <Form layout="vertical">
           <Form.Item
             name="username"
             label={<label className="text-white">Tài khoản</label>}
@@ -64,10 +64,14 @@ function Login(props) {
           >
             <Input.Password />
           </Form.Item>
+        </Form>
+        <div className='flex flex-col items-center gap-y-4'>
           <Button className="w-60 h-16 rounded-xl bg-purple-700 text-white mt-5" onClick={Login}>
             Đăng nhập
           </Button>
-        </Form>
+          <p className="text-purple-700">Bạn chưa có tài khoản hãy đăng kí</p>
+          <p className="text-purple-700 underline text-xl">Đăng kí</p>
+        </div>
       </div>
     </div>
   )

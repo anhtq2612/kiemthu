@@ -18,16 +18,16 @@ function Layout(props) {
       <SideBar />
       <div
         className={`bg-white flex-1 text-black border-1 border-dashed absolute duration-300 transition-all ${
-          toggleCollapse ? 'left-20' : 'left-80'
+          toggleCollapse ? 'left-20' : 'left-96'
         }`}
-        style={{ width: toggleCollapse ? 'calc(100% - 80px)' : 'calc(100% - 320px)' }}
+        style={{ width: toggleCollapse ? 'calc(100% - 80px)' : 'calc(100% - 24rem)' }}
       >
           <div
             className="h-16 bg-white w-full top-0 shadow-lg"
-            style={{ width: toggleCollapse ? 'calc(100% - 80px)' : 'calc(100% - 320px)' }}
+            style={{ width: toggleCollapse ? 'calc(100% - 80px)' : 'calc(100% - 24rem)' }}
           >
             <div className="flex justify-between h-full items-center pl-4 pr-6">
-              <p>Thông báo hôm nay là ngày 21/10</p>
+              <p>Thông báo hôm nay là ngày {new Date().toLocaleDateString()}</p>
               <Popover
                 placement="bottomRight"
                 trigger="click"

@@ -23,11 +23,11 @@ function SideBar() {
     _menuItems[idx].expanded = !item.expanded
     setMenuItems(_menuItems)
   }
-
+  console.log(router)
   return (
     <div
       className={`h-screen fixed pl-4 pt-8 pb-4 bg-gradient-to-t from-purple-700 to-purple-700 flex justify-between flex-col duration-300 transition-all ${
-        toggleCollapse ? 'w-20' : 'w-80'
+        toggleCollapse ? 'w-20' : 'w-96'
       }`}
     >
       <div className="flex flex-col">
@@ -56,56 +56,24 @@ function SideBar() {
           </div>
         </div>
         <div className="flex flex-col items-start mt-10">
-          {menuItems.map((item, idx) =>
-            item.subMenu ? (
-              <div key={idx} className="w-full">
-                <div className="flex justify-between px-3 py-2 text-purple-100" onClick={() => changeExpanded(item, idx)}>
-                  {item.title}
-                  <HiOutlineChevronDown size={15}/>
-                </div>
-                <div>
-                  {item.expanded &&
-                    item.subMenu.map((s, i) => (
-                      <div
-                        key={i}
-                        className={`hover:bg-purple-100 hover:text-purple-700 text-purple-100 w-full rounded-l-2xl cursor-pointer ${
-                          router.route === s.path && 'bg-purple-100 text-purple-700'
-                        }`}
-                      >
-                        <div
-                          className="flex py-2 px-3 items-center w-full h-full"
-                          onClick={() => {
-                            router.push(s.path, undefined, { shallow: true }),
-                              dispatch(routes(s.path))
-                          }}
-                        >
-                          <div>{<s.icon size={20} />}</div>
-                          <span className={`pl-2 ${toggleCollapse && 'hidden'}`}>{s.title}</span>
-                        </div>
-                      </div>
-                    ))}
-                </div>
-              </div>
-            ) : (
+          {menuItems.map((item, idx) => (
+            <div
+              key={idx}
+              className={`hover:bg-purple-100 hover:text-purple-700 text-purple-100 w-full rounded-l-2xl cursor-pointer ${
+                item.path === router.route ? 'bg-purple-100 !text-purple-700' : ''
+              }`}
+            >
               <div
-                key={idx}
-                className={`hover:bg-purple-100 hover:text-purple-700 text-purple-100 w-full rounded-l-2xl cursor-pointer ${
-                  router.route === item.path && 'bg-purple-100 text-purple-700'
-                }`}
+                className="flex py-2 px-3 items-center w-full h-full"
+                onClick={() => {
+                  router.push(item.path, undefined, { shallow: true }), dispatch(routes(item.path))
+                }}
               >
-                <div
-                  className="flex py-2 px-3 items-center w-full h-full"
-                  onClick={() => {
-                    router.push(item.path, undefined, { shallow: true }),
-                      dispatch(routes(item.path))
-                  }}
-                >
-                  <div>{<item.icon size={20} />}</div>
-                  <span className={`pl-2 ${toggleCollapse && 'hidden'}`}>{item.title}</span>
-                </div>
+                <div>{<item.icon size={20} />}</div>
+                <span className={`pl-2 ${toggleCollapse && 'hidden'}`}>{item.title}</span>
               </div>
-            )
-          )}
+            </div>
+          ))}
         </div>
       </div>
     </div>
