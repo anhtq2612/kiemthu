@@ -65,12 +65,14 @@ function Login(props) {
             <Input.Password />
           </Form.Item>
         </Form>
-        <div className='flex flex-col items-center gap-y-4'>
+        <div className="flex flex-col items-center gap-y-4">
           <Button className="w-60 h-16 rounded-xl bg-purple-700 text-white mt-5" onClick={Login}>
             Đăng nhập
           </Button>
           <p className="text-purple-700">Bạn chưa có tài khoản hãy đăng kí</p>
-          <p className="text-purple-700 underline text-xl">Đăng kí</p>
+          <p className="text-purple-700 underline text-xl" onClick={() => router.push('/signup')}>
+            Đăng kí
+          </p>
         </div>
       </div>
     </div>
