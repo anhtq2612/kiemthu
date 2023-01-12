@@ -23,7 +23,6 @@ function SideBar() {
     _menuItems[idx].expanded = !item.expanded
     setMenuItems(_menuItems)
   }
-  console.log(router)
   return (
     <div
       className={`h-screen fixed pl-4 pt-8 pb-4 bg-gradient-to-t from-purple-700 to-purple-700 flex justify-between flex-col duration-300 transition-all ${

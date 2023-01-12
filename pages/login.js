@@ -2,11 +2,14 @@ import { Button, Form, Input, notification } from 'antd'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { accountInfo } from './redux/reducers'
 
 function Login(props) {
   const router = useRouter()
   const [form] = Form.useForm()
   const [listAccounts, setListAccounts] = useState([])
+  const dispatch = useDispatch()
   const Login = () => {
     if (
       (listAccounts.find((e) => e.username === form.getFieldValue('username')) &&
@@ -17,12 +20,14 @@ function Login(props) {
       localStorage.setItem(
         'account',
         JSON.stringify({
+          email: form.getFieldValue('username') === 'admin' ? 'admin' : form.getFieldValue('username'),
           type:
-            form.getFieldValue('username') === 'admin' ? 'admin' : form.getFieldValue('username'),
+          listAccounts.find((e) => e.username === form.getFieldValue('username')).userType,
           id: listAccounts.find((e) => e.username === form.getFieldValue('username')).id,
           password: form.getFieldValue('password'),
         })
       )
+      dispatch(accountInfo(listAccounts.find((e) => e.username === form.getFieldValue('username'))))
     } else {
       notification.error({ message: 'Sai thông tin đăng nhập' })
     }

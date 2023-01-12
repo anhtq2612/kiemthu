@@ -6,6 +6,7 @@ import Layout from '../../components/Layout'
 export default function InfoAccount() {
   const [form] = Form.useForm()
   const [img, setImg] = useState('')
+  const [account, setAccount] = useState()
   const onSubmit = async () => {
     await axios
       .put(
@@ -38,7 +39,10 @@ export default function InfoAccount() {
           JSON.parse(localStorage.getItem('account')).id +
           '.json'
       )
-      .then((res) => form.setFieldsValue(res.data))
+      .then((res) => {form.setFieldsValue(res.data)
+      console.log(res.data);
+    }
+      )
       .catch((err) => {
         notification.error({ message: 'Có lỗi xảy ra!' })
       })
@@ -51,6 +55,9 @@ export default function InfoAccount() {
     <Layout>
       <Form form={form} layout="vertical">
         <Form.Item label="Tên người dùng" name="username">
+          <Input disabled />
+        </Form.Item>
+        <Form.Item label="Quyền" name="userType">
           <Input disabled />
         </Form.Item>
         <Form.Item label="Công ty" name="congty">

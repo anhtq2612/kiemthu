@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   collapse: false,
   listCoffee: [],
-  route: '/customer'
+  route: '/customer',
+  account: {}
 }
 export const collapse = createSlice({
   name: 'collapse',
@@ -20,11 +21,14 @@ export const collapse = createSlice({
     },
     routes: (state, action) => {
       state.route = action.payload
+    },
+    accountInfo: (state, action) => {
+      state.account = action.payload
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { collapseOpen, collapseClose, productList, routes } = collapse.actions
+export const { collapseOpen, collapseClose, productList, routes, accountInfo } = collapse.actions
 
 export default collapse.reducer

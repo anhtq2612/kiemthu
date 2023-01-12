@@ -1,20 +1,31 @@
-import { Button, Form, Input, notification } from 'antd'
+import { Button, Form, Input, notification, Select } from 'antd'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 function SignUp(props) {
   const router = useRouter()
   const [form] = Form.useForm()
+  const [listAccounts, setListAccounts] = useState([])
   const signUp = async (data) => {
-    await axios
-      .post('https://nuxttestproject1-default-rtdb.firebaseio.com/accounts.json', data)
-      .then((res) => {
-        notification.success({ message: 'Đăng kí thành công!' })
-      })
-      .catch((err) => {
-        notification.error({ message: 'Có lỗi xảy ra!' })
-      })
-    router.push('/login')
+    console.log(listAccounts)
+    console.log(form.getFieldValue('username'))
+    console.log(listAccounts.find((e) => e.username === form.getFieldValue('username')))
+    if (listAccounts.find((e) => e.username === form.getFieldValue('username'))) {
+      notification.error({ message: 'Tài khoản trùng!' })
+    } else {
+      await axios
+        .post('https://nuxttestproject1-default-rtdb.firebaseio.com/accounts.json', {
+          ...data,
+          userType: form.getFieldValue('userType') ? 'user' : form.getFieldValue('userType'),
+        })
+        .then((res) => {
+          notification.success({ message: 'Đăng kí thành công!' })
+        })
+        .catch((err) => {
+          notification.error({ message: 'Có lỗi xảy ra!' })
+        })
+      router.push('/login')
+    }
   }
   let validateSpecialCharacters = /^[a-zA-Z0-9]*$/
   let validateNumber = /[0-9]/
@@ -44,6 +55,17 @@ function SignUp(props) {
     }
     return Promise.resolve()
   }
+
+  const getAccounts = async () => {
+    await axios
+      .get('https://nuxttestproject1-default-rtdb.firebaseio.com/accounts.json')
+      .then((res) => setListAccounts(Object.keys(res.data).map((e) => res.data[e])))
+      .catch((err) => console.log(err))
+  }
+
+  useEffect(() => {
+    getAccounts()
+  }, [])
 
   return (
     <div>
@@ -89,6 +111,15 @@ function SignUp(props) {
             ]}
           >
             <Input.Password />
+          </Form.Item>
+          <Form.Item name="userType" label={<p className="text-white">Quyền</p>}>
+            <Select
+              options={[
+                { value: 'user', label: 'Người dùng' },
+                { value: 'company', label: 'Công ty' },
+              ]}
+              defaultValue="user"
+            />
           </Form.Item>
         </Form>
         <div className="flex flex-col items-center gap-y-4">
