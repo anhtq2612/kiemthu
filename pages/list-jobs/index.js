@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../../components/Layout'
 import axios from 'axios'
-import { Button, Table } from 'antd'
+import { Button, Card, Table } from 'antd'
 import { useRouter } from 'next/router'
 export default function ListJobs() {
   const [listJobs, setListJobs] = useState([])
@@ -14,7 +14,7 @@ export default function ListJobs() {
 
   return (
     <Layout>
-      <div className="flex justify-between items-center mb-10">
+      <Card title={<div className='flex justify-between'>
         <p className="font-semibold text-2xl">Danh sách công việc cần tuyển</p>
         <Button
           onClick={() => router.push('/list-jobs/create')}
@@ -22,7 +22,7 @@ export default function ListJobs() {
         >
           Thêm mới
         </Button>
-      </div>
+      </div>}>
       <div className="grid grid-cols-3">
         {listJobs &&
           listJobs.map((job) => (
@@ -31,6 +31,7 @@ export default function ListJobs() {
               key={job.id}
               onClick={() => router.push(`/list-jobs/${job.id}`)}
             >
+              <p className='text-xl text-center text-blue-600'>Công ty <span className='text-xl font-semibold'>{job.companyName}</span></p>
               <img src={job.image} alt="a" className="w-full h-48 object-contain" />
               <div>
                 <h2>{job.name}</h2>
@@ -47,6 +48,7 @@ export default function ListJobs() {
             </div>
           ))}
       </div>
+      </Card>
     </Layout>
   )
 }

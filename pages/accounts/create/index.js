@@ -3,11 +3,14 @@ import { Button, Card, DatePicker, Form, Input, InputNumber, notification, Selec
 import Layout from '../../../components/Layout'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 
 export default function AccountCreate() {
   const [form] = Form.useForm()
   const router = useRouter()
   const [listAccounts, setListAccounts] = useState([])
+  const accountType = useSelector((state) => state.collapse.account.userType)
+
   const onSubmit = async (data) => {
     if (listAccounts.find((e) => e.username === form.getFieldValue('username'))) {
       notification.error({ message: 'Tài khoản trùng!' })
@@ -101,11 +104,11 @@ export default function AccountCreate() {
               rules={[{ required: true, message: 'Không được để trống!' }]}
             >
               <Select
-                options={[
+                options={accountType === 'admin' ? [
                   { value: 'admin', label: 'Admin' },
                   { value: 'user', label: 'Người dùng' },
                   { value: 'company', label: 'Công ty' },
-                ]}
+                ] : [{ value: 'user', label: 'Người dùng' }]}
                 className="w-full"
               />
             </Form.Item>

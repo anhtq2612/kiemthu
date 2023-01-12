@@ -14,7 +14,7 @@ import { FaBloggerB } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 export const menu = () => {
   const accountType = useSelector((state) => state.collapse.account)
-  const [menuItems, setMenuItems] = useState(accountType.userType === 'admin' ? [
+  const [menuItems, setMenuItems] = useState(accountType.userType === 'admin' || accountType.userType === 'company' ? [
     {
       title: 'Quản lý tài khoản',
       icon: HiUserGroup,
