@@ -86,7 +86,7 @@ export default function JobCreate() {
               name="phone"
               rules={[{ required: true, message: 'Không được để trống!' }]}
             >
-              <Input />
+              <InputNumber maxLength={10} />
             </Form.Item>
             <div className="relative">
               <Form.Item
