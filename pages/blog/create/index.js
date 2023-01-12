@@ -5,16 +5,21 @@ import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import ReactMde from 'react-mde'
 import 'react-mde/lib/styles/css/react-mde-all.css'
+import { useSelector } from 'react-redux'
 import Layout from '../../../components/Layout'
 
 const BlogCreate = () => {
   const [selectedTab, setSelectedTab] = useState('write')
   const [form] = Form.useForm()
   const router = useRouter()
-
+  const accountType = useSelector((state) => state.collapse.account)
   const onSubmit = async (data) => {
     await axios
-      .post('https://nuxttestproject1-default-rtdb.firebaseio.com/datablog.json', data)
+      .post('https://nuxttestproject1-default-rtdb.firebaseio.com/datablog.json', {
+        ...data,
+        type: accountType.userType === 'admin' ? 3 : 2,
+        username: accountType.username
+      })
       .then((res) => {
         notification.success({ message: 'Thêm mới thành công!' })
         router.push('/blog')
@@ -29,7 +34,7 @@ const BlogCreate = () => {
       <Card
         title={
           <div className="flex justify-between">
-            <h1 className="font-bold text-xl">Thêm mới Job</h1>
+            <h1 className="font-bold text-xl">Thêm mới Blog</h1>
             <div className="flex gap-x-5">
               <Button
                 className="bg-purple-700 text-white"
@@ -61,19 +66,45 @@ const BlogCreate = () => {
             },
           ]}
         >
-          <Form.Item label="Tiêu đề" name="title" rules={[{required: true, message: 'Không được để trống'}]}>
+          <Form.Item
+            label="Tiêu đề"
+            name="title"
+            rules={[{ required: true, message: 'Không được để trống' }]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item label="Mô tả" name={'description'} rules={[{required: true, message: 'Không được để trống'}]}>
+          <Form.Item
+            label="Người đăng"
+            name="userPost"
+          >
             <Input />
           </Form.Item>
-          <Form.Item label="Thể loại" name={'category'} rules={[{required: true, message: 'Không được để trống'}]}>
+          <Form.Item
+            label="Mô tả"
+            name={'description'}
+            rules={[{ required: true, message: 'Không được để trống' }]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item label="Ngày tạo" name={'createdAt'} rules={[{required: true, message: 'Không được để trống'}]}>
+          <Form.Item
+            label="Thể loại"
+            name={'category'}
+            rules={[{ required: true, message: 'Không được để trống' }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Ngày tạo"
+            name={'createdAt'}
+            rules={[{ required: true, message: 'Không được để trống' }]}
+          >
             <DatePicker />
           </Form.Item>
-          <Form.Item label="Trạng thái" name="status" rules={[{required: true, message: 'Không được để trống'}]}>
+          <Form.Item
+            label="Trạng thái"
+            name="status"
+            rules={[{ required: true, message: 'Không được để trống' }]}
+          >
             <Select
               options={[
                 {
@@ -91,7 +122,11 @@ const BlogCreate = () => {
               ]}
             />
           </Form.Item>
-          <Form.Item label="Nội dung" name="content" rules={[{required: true, message: 'Không được để trống'}]}>
+          <Form.Item
+            label="Nội dung"
+            name="content"
+            rules={[{ required: true, message: 'Không được để trống' }]}
+          >
             <ReactMde
               selectedTab={selectedTab}
               onTabChange={setSelectedTab}
