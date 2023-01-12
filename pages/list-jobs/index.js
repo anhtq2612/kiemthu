@@ -23,11 +23,11 @@ export default function ListJobs() {
           Thêm mới
         </Button>
       </div>}>
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-3 gap-10">
         {listJobs &&
           listJobs.map((job) => (
             <div
-              className="w-[90%] p-4 hover:bg-slate-200 border-purple-700 border-2"
+              className="p-4 hover:bg-slate-200 border-purple-700 border-2"
               key={job.id}
               onClick={() => router.push(`/list-jobs/${job.id}`)}
             >

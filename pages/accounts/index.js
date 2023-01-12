@@ -1,4 +1,4 @@
-import { Button, Card, Input, Modal, notification, Table } from 'antd'
+import { Button, Card, Input, Modal, notification, Table, Select } from 'antd'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -8,14 +8,18 @@ import { BiEdit, BiTrashAlt } from 'react-icons/bi'
 export default function Accounts() {
   const [listAccounts, setListAccounts] = useState([])
   const router = useRouter()
+  const [search, setSearch] = useState('')
+  const [listSearch, setListSearch] = useState([])
   const [showModalDelete, setShowModalDelete] = useState(false)
   const [account, setAccount] = useState()
+  const [quyen, setQuyen] = useState()
   const getListAccounts = async () => {
     await axios
       .get('https://nuxttestproject1-default-rtdb.firebaseio.com/accounts.json')
       .then((res) => {
         if (res.data) {
           setListAccounts(Object.keys(res.data).map((s) => ({ ...res.data[s], id: s })))
+          setListSearch(Object.keys(res.data).map((s) => ({ ...res.data[s], id: s })))
         }
       })
       .catch((error) => console.log(error))
@@ -23,9 +27,7 @@ export default function Accounts() {
 
   const handleDelete = async (id) => {
     await axios
-      .delete(
-        `https://nuxttestproject1-default-rtdb.firebaseio.com/accounts/` + id + `.json`
-      )
+      .delete(`https://nuxttestproject1-default-rtdb.firebaseio.com/accounts/` + id + `.json`)
       .then((res) => {
         notification.success({ message: 'Xóa thành công!' })
         setShowModalDelete(false)
@@ -66,13 +68,40 @@ export default function Accounts() {
     },
   ]
 
-  const onSearchUsername = () => {}
+  const onSearchUsername = (search, data) => {
+    let filterData = []
+    for (var i = 0; i < listSearch?.length; i++) {
+      search = search.toLowerCase()
+      var username = listSearch[i]?.username.toLowerCase()
+      if (username?.includes(search)) {
+        filterData.push(data[i])
+      }
+    }
+    return filterData
+  }
+
+  const onSearchQuyen = () => {
+    if (quyen) {
+      setListAccounts(listSearch.filter((e) => e.userType === quyen))
+    } else {
+      setListAccounts(listSearch)
+    }
+  }
+
+  useEffect(() => {
+    let b = onSearchUsername(search, listSearch)
+    setListAccounts(b)
+  }, [search])
+
+  useEffect(() => {
+    onSearchQuyen()
+  }, [quyen])
   return (
     <Layout>
       <Card
         title={
           <div className="flex justify-between">
-            <p className='font-semibold text-2xl'>Danh sách tài khoản</p>
+            <p className="font-semibold text-2xl">Danh sách tài khoản</p>
             <Button
               className="text-white bg-purple-700"
               onClick={() => router.push('/accounts/create')}
@@ -83,10 +112,20 @@ export default function Accounts() {
         }
       >
         <div className="mb-5">
-          <div>
+          <div className="grid grid-cols-3 gap-x-3">
             <Input
               placeholder="Nhập tên người dùng..."
-              onChange={(e) => onSearchUsername(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <Select
+              placeholder="Quyền tài khoản..."
+              options={[
+                { value: 'admin', label: 'admin' },
+                { value: 'company', label: 'company' },
+                { value: 'user', label: 'user' },
+              ]}
+              allowClear
+              onChange={(value) => setQuyen(value)}
             />
           </div>
         </div>

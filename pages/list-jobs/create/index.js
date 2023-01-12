@@ -75,7 +75,7 @@ export default function JobCreate() {
               <Input />
             </Form.Item>
             <Form.Item
-              label="Tên Jobs"
+              label="Tên công ty"
               name="companyName"
               rules={[{ required: true, message: 'Không được để trống!' }]}
             >
